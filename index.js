@@ -2,8 +2,9 @@
 const express = require('express');
 const path = require('path');
 const {connectionOfMongoDb} = require('./connectMongoDB');
+const UrlHome = require('./routers/URL');
 const staticRouter = require('./routers/staticRouter');
-
+const {checkValidUser} = require('./middlewares/auth');
 const app = express();
 const port = 4500;
 
@@ -17,3 +18,4 @@ connectionOfMongoDb("mongodb://127.0.0.1:27017/urldata");
 app.listen(port);
 
 app.use('/',staticRouter);
+app.use('/url',checkValidUser,UrlHome);
