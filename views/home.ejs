@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" href="../HTMLFiles/style.css" />
+    <style>
+  
+  .container {
+  margin-left: 500px;
+  margin-bottom: 50px;
+}
+.formofNewURL{
+  margin-left: 500px;
+  margin-bottom: 50px;
+}
+.Urltable{
+  margin-left: 200px;
+}
+      td {
+        word-wrap: break-word;
+      }
+      table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+      
+      body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>URL shortner</h1>
+      </div>
+      <div class ="formofNewURL">
+        <form method="POST" action="/url">
+        <h3><label>Enter your URL here</label>
+          </h3>
+        <input type="text" name="url" placeholder="www.example.com">
+        <button type="submit">Generate</button>
+      </form>
+      </div>
+      <br><br><br>
+      <div class="Urltable">
+        <table>
+          <thead>
+            <th>Serial No</th>
+            <th>Original URL</th>
+            <th>Short URL</th>
+            <th>Hit rate</th>
+          </thead>
+          <tbody>
+            <% allURLs.slice().reverse().forEach((url,index) => { %>
+            <tr>
+              <td><%= index+1 %></td>
+              <td style="max-width:700px;"><%= url.redirectURL %></td>
+              <td>
+                <a href="url?shortId=<%=url.shortId %>">
+                <%= url.shortId %>
+                </a>
+              </td>
+              <td>
+                <%= url.totalClicks.length %>
+              </td>
+              <% }) %>
+            </tr>
+          </tbody>
+        </table>
+      
+    </div>
+  </body>
+</html>
