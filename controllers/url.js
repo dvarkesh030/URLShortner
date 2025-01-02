@@ -25,18 +25,12 @@ async function RedirectToURL(req,res) {
 };
 
 
-async function AnalyticsofURL(req,res) {
-    const shortId = req.query.shortId;
-    const result = await URL.findOne({
-        shortId:shortId,
-    },);
-    res.json({totalClicks: result.totalClicks.length,
-        lastClick:result.totalClicks[result.totalClicks.length-1].timestamp
-    });
+async function LoadMainPageData(req,res){
+    const URLs = await URL.find({});
+    res.render('home',{allURLs:URLs});
 };
-
 
 module.exports={CreateNewURL,
     RedirectToURL,
-    AnalyticsofURL
+    LoadMainPageData
 };

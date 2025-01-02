@@ -37,10 +37,10 @@ th, td {
       <h1>URL shortner</h1>
       </div>
       <div class ="formofNewURL">
-        <form method="POST" action="/url">
+        <form method="POST" action="/">
         <h3><label>Enter your URL here</label>
           </h3>
-        <input type="text" name="url" placeholder="www.example.com">
+        <input type="text" name="url" placeholder="www.Example.com">
         <button type="submit">Generate</button>
       </form>
       </div>
@@ -59,7 +59,7 @@ th, td {
               <td><%= index+1 %></td>
               <td style="max-width:700px;"><%= url.redirectURL %></td>
               <td>
-                <a href="url?shortId=<%=url.shortId %>">
+                <a href="redirect?shortId=<%=url.shortId %>">
                 <%= url.shortId %>
                 </a>
               </td>
