@@ -35,6 +35,7 @@ th, td {
   <body>
     <div class="container">
       <h1>URL shortner</h1>
+      <a href="/auth/signup"> Logout</a>
       </div>
       <div class ="formofNewURL">
         <form method="POST" action="/">
@@ -56,7 +57,7 @@ th, td {
           <tbody>
             <% allURLs.slice().reverse().forEach((url,index) => { %>
             <tr>
-              <td><%= index+1 %></td>
+              <td><%= allURLs.length-index %></td>
               <td style="max-width:700px;"><%= url.redirectURL %></td>
               <td>
                 <a href="redirect?shortId=<%=url.shortId %>">
