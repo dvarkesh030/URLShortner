@@ -2,8 +2,10 @@ const users = require('../models/Users');
 const URL = require('../models/url');
 const jwt = require('jsonwebtoken');
 
-
 async function signUp(req,res) {
+    req.session = null;
+    res.clearCookie("id");
+    res.clearCookie("id.sig");
     res.render('signup');
 };
 async function createNewUser(req,res) {
@@ -36,3 +38,4 @@ async function checklogin(req,res) {
     return res.redirect('/home');
 };
 module.exports={signUp,createNewUser,LoadLoginpage,checklogin};
+    
