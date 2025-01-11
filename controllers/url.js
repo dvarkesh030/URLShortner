@@ -9,7 +9,7 @@ async function CreateNewURL(req,res) {
         return res.render('home',{allURLs:filteredURLs,User:session.user});
     }
     if(!body.url){
-        console.log(session.user);
+
         const URLs= await URL.find({createdBy:session.user.id});
         return res.render('home',{allURLs:URLs,User:session.user});
     }

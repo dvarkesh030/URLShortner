@@ -7,7 +7,7 @@ async function checkAuthorization(req,res,next){
     const user = session.user;
     if(user.role === 'admin'){
         const URLs= await URL.find({});
-        console.log(URLs);
+
         return res.render('home',{allURLs:URLs,User:user});    
     }else if(user.role === 'normal'){
         const URLs= await URL.find({createdBy:user.id});
