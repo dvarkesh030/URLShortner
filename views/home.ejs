@@ -34,14 +34,15 @@ th, td {
   </head>
   <body>
     <div class="container">
-      <h1>URL shortner</h1>
-      <a href="/auth/signup"> Logout</a>
+      <h1> URL shortner
+        <a href="/auth/signup"> Logout from <%= User.name %></a>
+      </h1>
+
       </div>
       <div class ="formofNewURL">
-        <form method="POST" action="/">
-        <h3><label>Enter your URL here</label>
-          </h3>
-        <input type="text" name="url" placeholder="www.Example.com">
+        <form method="POST" action="/urlPost">
+        <input type="text" name="url" placeholder="Add New URL here...">
+        <input type="text" name="searchedUrl" placeholder="Search URL here..">
         <button type="submit">Generate</button>
       </form>
       </div>

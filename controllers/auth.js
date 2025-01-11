@@ -1,6 +1,7 @@
 const users = require('../models/Users');
 const URL = require('../models/url');
 const jwt = require('jsonwebtoken');
+const session = require('express-session');
 
 async function signUp(req,res) {
     req.session = null;
@@ -13,7 +14,8 @@ async function createNewUser(req,res) {
     const user = users.create({
         name: name,
         email: email,
-        password:password
+        password:password,
+        role:'normal'
     });
     res.redirect('/login');
 }
@@ -30,12 +32,15 @@ async function checklogin(req,res) {
     }
     const payload = {
         id: user._id,
-        email:user.email
+        name:user.name,
+        email:user.email,
+        role:user.role
     };
     const secretKey = 'MDvarkesh';
     const signedToken = jwt.sign(payload,secretKey);
     res.cookie("id",signedToken);
-    return res.redirect('/home');
+    session.user = payload;
+    return res.redirect('/');
 };
 module.exports={signUp,createNewUser,LoadLoginpage,checklogin};
     

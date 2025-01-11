@@ -16,7 +16,12 @@ const urlSchema = new mongoose.Schema({
       },
     },
   ],
-},{timestamps:true});
+  createdBy:{
+    type: String,
+    required:true
+  },
+}
+,{timestamps:true});
 
 
 const URL = mongoose.model('urldata',urlSchema);

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {LoadMainPageData,CreateNewURL,RedirectToURL} = require('../controllers/url');
+const {LoadMainPageData,CreateNewURL,RedirectToURL,searchUrl} = require('../controllers/url');
 
 router.get('/redirect',RedirectToURL);
 router.get('/home', LoadMainPageData);
