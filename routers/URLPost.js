@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {CreateNewURL} = require('../controllers/url');
+const {editURL,CreateNewURL,deleteURL,RedirectToURL} = require('../controllers/url');
+router.get('/redirect',RedirectToURL);
 router.post('/',CreateNewURL);
-module.exports=router;
+router.post('/delete',deleteURL); 
+router.post('/edit',editURL);
+module.exports=router; 

@@ -25,8 +25,10 @@ app.use(express.json());
 app.set('view engine','ejs');
 app.set('views',path.resolve('./views'));
 
+app.use('/public', express.static('public'));
+
 connectionOfMongoDb("mongodb://127.0.0.1:27017/urldata");
 app.listen(port);
 app.use('/auth',staticRouter);
-app.use('/urlPost',UrlPost);
+app.use('/urlPost',UrlPost); 
 app.use('/',checkValidUser,checkAuthorization,UrlHome);

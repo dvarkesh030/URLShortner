@@ -4,75 +4,295 @@
     <title>Home</title>
     <link rel="stylesheet" href="../HTMLFiles/style.css" />
     <style>
-  
-  .container {
-  margin-left: 500px;
-  margin-bottom: 50px;
-}
-.formofNewURL{
-  margin-left: 500px;
-  margin-bottom: 50px;
-}
-.Urltable{
-  margin-left: 200px;
-}
+      .bodyofeditPopup {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+
+      .btn-open-popup {
+        padding: 12px 24px;
+        font-size: 18px;
+        background-color: green;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-open-popup:hover {
+        background-color: #4caf50;
+      }
+
+      .overlay-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .popup-box {
+        background: #fff;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        width: 320px;
+        text-align: center;
+        opacity: 0;
+        transform: scale(0.8);
+        animation: fadeInUp 0.5s ease-out forwards;
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-label {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #444;
+        text-align: left;
+      }
+
+      .form-input {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .btn-submit,
+      .btn-close-popup {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .btn-submit {
+        background-color: green;
+        color: #fff;
+      }
+
+      .btn-close-popup {
+        margin-top: 12px;
+        background-color: #e74c3c;
+        color: #fff;
+      }
+
+      .btn-submit:hover,
+      .btn-close-popup:hover {
+        background-color: #4caf50;
+      }
+
+      /* Keyframes for fadeInUp animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animation for popup */
+      .overlay-container.show {
+        display: flex;
+        opacity: 1;
+      }
+
+      .deleteimageclass {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+      }
+      .containerforHeader {
+        border: 1px solid black;
+        background: #81fc4f;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        height: 100px;
+      }
+      .left,
+      .right {
+        margin: 0;
+      }
+      .container {
+        margin-left: 500px;
+        margin-bottom: 50px;
+      }
+      a:link {
+        text-decoration: none;
+      }
+
+      a:visited {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      a:active {
+        text-decoration: none;
+      }
+      .formofNewURL {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+        margin-left: 450px;
+        margin-bottom: 0px;
+      }
+      .Urltable {
+        margin-left: 450px;
+      }
       td {
         word-wrap: break-word;
       }
-      table, th, td {
-  border: 1px solid white;
-  border-collapse: collapse;
-}
-th, td {
-  background-color: #96D4D4;
-}
-      
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        background-color: #81fc4f;
+      }
+
       body {
         font-family: Georgia, "Times New Roman", Times, serif;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1> URL shortner
-        <a href="/auth/signup"> Logout from <%= User.name %></a>
+    <div class="containerforHeader">
+      <h1 class="left">URL shortner</h1>
+      <h1 class="right">
+        <a href="/auth/signup" style="color: #000000">
+          Logout from <%= User.name %></a
+        >
       </h1>
-
-      </div>
-      <div class ="formofNewURL">
-        <form method="POST" action="/urlPost">
-        <input type="text" name="url" placeholder="Add New URL here...">
-        <input type="text" name="searchedUrl" placeholder="Search URL here..">
+    </div>
+    <div class="formofNewURL">
+      <form method="POST" action="/urlPost">
+        <input type="text" name="url" placeholder="Add New URL here..." />
+        <input type="text" name="searchedUrl" placeholder="Search URL here.." />
         <button type="submit">Generate</button>
       </form>
-      </div>
-      <br><br><br>
-      <div class="Urltable">
-        <table>
-          <thead>
-            <th>Serial No</th>
-            <th>Original URL</th>
-            <th>Short URL</th>
-            <th>Hit rate</th>
-          </thead>
-          <tbody>
-            <% allURLs.slice().reverse().forEach((url,index) => { %>
-            <tr>
-              <td><%= allURLs.length-index %></td>
-              <td style="max-width:700px;"><%= url.redirectURL %></td>
-              <td>
-                <a href="redirect?shortId=<%=url.shortId %>">
-                <%= url.shortId %>
-                </a>
-              </td>
-              <td>
-                <%= url.totalClicks.length %>
-              </td>
-              <% }) %>
-            </tr>
-          </tbody>
-        </table>
-      
     </div>
+    <br /><br /><br />
+    <div class="Urltable">
+      <table>
+        <thead>
+          <th>Serial No</th>
+          <th>Original URL</th>
+          <th>Short URL</th>
+          <th>Edit</th>
+          <th>Hit rate</th>
+          <th>Delete</th>
+        </thead>
+        <tbody>
+          <% allURLs.slice().reverse().forEach((url,index) => { %>
+          <tr>            
+            <td>
+              <%= allURLs.length-index %>
+            </td>
+            <td style="max-width: 700px"><%= url.redirectURL %></td>
+            <td>
+              <a
+                href="/urlPost/redirect?shortId=<%=url.shortId %>"
+                style="color: #000000"
+              >
+                <%= url.shortId %>
+              </a>
+            </td>
+            <td ><button  onclick="togglePopup('<%= url._id %>','<%= url.redirectURL %>')">Edit</button></td>
+            <td><%= url.totalClicks.length %></td>
+            <form action="/urlPost/delete" method="post">
+              <td>
+                <button type="submit">
+                  <img
+                    onclick=""
+                    class="deleteimageclass"
+                    src="/public/images/download.jpg"
+                    alt="Delete icon"
+                  />
+                </button>
+                <input type="hidden" name="id" value="<%= url.id %>" />
+                
+              </td>
+            </form>
+            <% }) %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bodyofeditPopup">
+      <div id="popupOverlay" class="overlay-container">
+        <div class="popup-box">
+          <h2 style="color: green">Edit URL</h2>
+          <form class="form-container" action="urlPost/edit" method="post">
+            <label class="form-label" for="name"> URL: </label>
+            <input id="InputEdit"
+              class="form-input"
+              type="text"
+              placeholder="Enter URL here..."
+              name="url"
+              required
+            />
+            <input id="InputEditid"
+              name="id"
+              class="form-input"
+              type="hidden"
+            />
+            <button class="btn-submit" type="submit">Update</button>
+          </form>
+
+          <button class="btn-close-popup" onclick="togglePopup()">Close</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // function openEditModal(id, name) {
+      //   console.log("pop up function is working");
+      //   const popupOfedit = document.getElementById("editPopup");
+      //   popupOfedit.style.display = "flex";
+      //   // overlay.style.display = "block";
+      // }
+      function togglePopup(id,url) {
+        const overlay = document.getElementById("popupOverlay");
+        const InputforEdit = document.getElementById("InputEdit");
+        InputforEdit.value = url;
+        const InputforEditid = document.getElementById("InputEditid");
+        InputforEditid.value = id;
+        overlay.classList.toggle("show");
+      }
+    </script>
   </body>
 </html>
