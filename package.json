@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "connect-redis": "^9.0.0",
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
@@ -8,6 +9,9 @@
     "mongoose": "^8.9.3",
     "nanoid": "^5.0.9",
     "nodemon": "^3.1.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "redis": "^5.8.3",
     "shortid": "^2.2.8",
     "uuid": "^11.0.3"
   },

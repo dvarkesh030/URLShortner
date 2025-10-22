@@ -203,6 +203,7 @@
         <input type="text" name="url" placeholder="Add New URL here..." />
         <input type="text" name="searchedUrl" placeholder="Search URL here.." />
         <button type="submit">Generate</button>
+        <button type="clearFilter">clear</button action="/tableFilterClear">
       </form>
     </div>
     <br /><br /><br />
@@ -285,6 +286,14 @@
       //   popupOfedit.style.display = "flex";
       //   // overlay.style.display = "block";
       // }
+      window.addEventListener('pageshow', function (event) {
+    const isBackForwardNavigation =
+      event.persisted || (window.performance && window.performance.navigation.type === 2);
+
+    if (isBackForwardNavigation) {
+      window.location.reload();
+    }
+  });
       function togglePopup(id,url) {
         const overlay = document.getElementById("popupOverlay");
         const InputforEdit = document.getElementById("InputEdit");

@@ -4,18 +4,26 @@ const session = require("express-session");
 
 async function editURL(req, res) {
   const { id, url } = req.body;
-  if (!id || !url) {
-    return res.status(400).json({ error: "hey input data" });
-  }
   try {
-    const row = await URL.findByIdAndUpdate(id, {redirectURL:url});
+    const row = await URL.findByIdAndUpdate(id, { redirectURL: url });
     res.redirect("/");
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred while updating the record" });
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the record" });
   }
 }
 
+async function clearFilter(req, res) {
+  try {
+    var URLs = [];
+    URLs = await URL.find({ createdBy: session.user.id });
+    res.render("home", { allURLs: URLs, User: session.user });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 async function CreateNewURL(req, res) {
   const body = req.body;
@@ -39,7 +47,6 @@ async function CreateNewURL(req, res) {
   return res.redirect("/");
 }
 async function RedirectToURL(req, res) {
-  console.log('dhjsdjhasdj');
   const shortId = req.query.shortId;
   const entry = await URL.findOneAndUpdate(
     {
@@ -64,6 +71,7 @@ async function searchUrl(req, res) {
 }
 
 async function LoadMainPageData(req, res) {
+  URLs = [];
   const URLs = await URL.find({ createdBy: session.user.id });
   res.render("home", { allURLs: URLs, User: session.user });
 }
@@ -78,5 +86,6 @@ module.exports = {
   LoadMainPageData,
   searchUrl,
   deleteURL,
+  clearFilter,
   editURL,
 };

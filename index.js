@@ -3,14 +3,15 @@ const path = require('path');
 const {connectionOfMongoDb} = require('./connectMongoDB');
 const cookies = require('cookie-parser');
 
-
 const UrlHome = require('./routers/URL');
 const UrlPost = require('./routers/URLPost');
+const tableFilterClear = require('./routers/tableFilterClear');
 const staticRouter = require('./routers/staticRouter');
 const {checkValidUser,checkAuthorization} = require('./middlewares/auth');
 const session = require('express-session');
 const app = express();
-const port = 4500;
+const port = process.env.PORT || 4500;
+
 app.use(session({
     secret: 'MDvarkesh',
     resave: false,
@@ -30,5 +31,6 @@ app.use('/public', express.static('public'));
 connectionOfMongoDb("mongodb://127.0.0.1:27017/urldata");
 app.listen(port);
 app.use('/auth',staticRouter);
-app.use('/urlPost',UrlPost); 
+app.use('/urlPost',UrlPost);
+app.use('/tableFilterClear',tableFilterClear);
 app.use('/',checkValidUser,checkAuthorization,UrlHome);
