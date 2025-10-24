@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 4500;
 
 app.use(session({
-    secret: 'MDvarkesh',
+    secret: process.env.secretv,
     resave: false,
     saveUninitialized:true,
     cookie:{secure:false}
@@ -28,7 +28,7 @@ app.set('views',path.resolve('./views'));
 
 app.use('/public', express.static('public'));
 
-connectionOfMongoDb("mongodb://127.0.0.1:27017/urldata");
+connectionOfMongoDb(process.env.MONGO_URI);
 app.listen(port);
 app.use('/auth',staticRouter);
 app.use('/urlPost',UrlPost);
